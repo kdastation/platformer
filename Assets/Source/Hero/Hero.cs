@@ -9,6 +9,7 @@ public class Hero : MonoBehaviour
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private LayerChecker _groundLayerChecker;
     [SerializeField] private Animator _animator;
+    [SerializeField] private HealthComponent _healthComponent;
 
     private SpriteRenderer _spirteRenderer;
 
@@ -17,16 +18,20 @@ public class Hero : MonoBehaviour
     private readonly static int RunningAnimationKey = Animator.StringToHash("is-running");
     private readonly static int IsGroundedAnimationKey = Animator.StringToHash("is-grounded");
     private readonly static int VelocityYAnimationKey = Animator.StringToHash("velocity-y");
+    private readonly static int HitAnimationKey = Animator.StringToHash("hit");
 
-    private void Awake()
-    {
-        _spirteRenderer = GetComponent<SpriteRenderer>();
-    }
 
     public void SetDirection(Vector2 direction)
     {
         _direaction = direction;
     }
+
+
+    public void TakeDamage()
+    {
+        _animator.SetTrigger(HitAnimationKey);
+    }
+
 
     private void FixedUpdate()
     {
@@ -41,6 +46,11 @@ public class Hero : MonoBehaviour
         _animator.SetFloat(VelocityYAnimationKey, _rigidbody.velocity.y);
 
         UpdateSpriteDirection();
+    }
+
+    private void Awake()
+    {
+        _spirteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private float CalculateYVelocity()
@@ -88,6 +98,7 @@ public class Hero : MonoBehaviour
             _spirteRenderer.flipX = true;
         }
     }
+
 
     private bool IsGrounded()
     {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnterTriigger : MonoBehaviour
+public class EnterTrigger : MonoBehaviour
 {
     [SerializeField] private string _tag;
 
