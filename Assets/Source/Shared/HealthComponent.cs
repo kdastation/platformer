@@ -28,3 +28,4 @@ public class HealthComponent : MonoBehaviour
         return health <= 0;
     }
 }
+
